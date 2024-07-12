@@ -46,7 +46,7 @@ impl YawPitch {
     /// Any roll rotation will be ignored.
     pub fn rotation_quat<Q>(mut self, rotation: Q) -> Self
     where
-        Q: Into<mint::Quaternion<f32>>,
+        Q: Into<Quat>,
     {
         self.set_rotation_quat(rotation);
         self
@@ -74,9 +74,9 @@ impl YawPitch {
     /// Any roll rotation will be ignored.
     pub fn set_rotation_quat<Q>(&mut self, rotation: Q)
     where
-        Q: Into<mint::Quaternion<f32>>,
+        Q: Into<Quat>,
     {
-        let rotation: Quat = rotation.into().into();
+        let rotation: Quat = rotation.into();
         let (yaw, pitch, _) = rotation.to_euler(EulerRot::YXZ);
         self.yaw_degrees = yaw.to_degrees();
         self.pitch_degrees = pitch.to_degrees();
@@ -94,7 +94,7 @@ impl<H: Handedness> RigDriver<H> for YawPitch {
 
         Transform {
             position: params.parent.position,
-            rotation: rotation.into(),
+            rotation,
             phantom: PhantomData,
         }
     }

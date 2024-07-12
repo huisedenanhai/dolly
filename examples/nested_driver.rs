@@ -146,15 +146,7 @@ impl DollyToMacroquad for glam::Vec3 {
     }
 }
 
-impl DollyToMacroquad for mint::Vector3<f32> {
-    type Target = Vec3;
-
-    fn d2m(self) -> Self::Target {
-        <[f32; 3]>::from(self).into()
-    }
-}
-
-impl DollyToMacroquad for mint::Point3<f32> {
+impl DollyToMacroquad for Vec3 {
     type Target = Vec3;
 
     fn d2m(self) -> Self::Target {

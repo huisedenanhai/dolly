@@ -56,10 +56,10 @@ impl<T: Interpolate + Copy + std::fmt::Debug> ExpSmoothed<T> {
 
 pub fn look_at<H: Handedness, V, Q>(forward: V) -> Q
 where
-    V: Into<mint::Vector3<f32>>,
-    Q: From<mint::Quaternion<f32>>,
+    V: Into<Vec3>,
+    Q: From<Quat>,
 {
-    let forward: Vec3 = forward.into().into();
+    let forward: Vec3 = forward.into();
 
     let result = forward
         .try_normalize()
@@ -75,5 +75,5 @@ where
         })
         .unwrap_or_default();
 
-    From::from(result.into())
+    From::from(result)
 }

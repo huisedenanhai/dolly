@@ -8,12 +8,12 @@ pub trait Handedness: Clone + Copy + Debug + 'static {
 
     fn right_from_up_and_forward<V, U>(up: V, forward: V) -> U
     where
-        V: Into<mint::Vector3<f32>>,
-        U: From<mint::Vector3<f32>>;
+        V: Into<Vec3>,
+        U: From<Vec3>;
     fn up_from_right_and_forward<V, U>(right: V, forward: V) -> U
     where
-        V: Into<mint::Vector3<f32>>,
-        U: From<mint::Vector3<f32>>;
+        V: Into<Vec3>,
+        U: From<Vec3>;
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -24,26 +24,26 @@ impl Handedness for LeftHanded {
 
     fn right_from_up_and_forward<V, U>(up: V, forward: V) -> U
     where
-        V: Into<mint::Vector3<f32>>,
-        U: From<mint::Vector3<f32>>,
+        V: Into<Vec3>,
+        U: From<Vec3>,
     {
-        let up: Vec3 = up.into().into();
-        let forward: Vec3 = forward.into().into();
+        let up: Vec3 = up.into();
+        let forward: Vec3 = forward.into();
 
         let result = up.cross(forward);
-        From::from(result.into())
+        From::from(result)
     }
 
     fn up_from_right_and_forward<V, U>(right: V, forward: V) -> U
     where
-        V: Into<mint::Vector3<f32>>,
-        U: From<mint::Vector3<f32>>,
+        V: Into<Vec3>,
+        U: From<Vec3>,
     {
-        let right: Vec3 = right.into().into();
-        let forward: Vec3 = forward.into().into();
+        let right: Vec3 = right.into();
+        let forward: Vec3 = forward.into();
 
         let result = forward.cross(right);
-        From::from(result.into())
+        From::from(result)
     }
 }
 
@@ -55,25 +55,25 @@ impl Handedness for RightHanded {
 
     fn right_from_up_and_forward<V, U>(up: V, forward: V) -> U
     where
-        V: Into<mint::Vector3<f32>>,
-        U: From<mint::Vector3<f32>>,
+        V: Into<Vec3>,
+        U: From<Vec3>,
     {
-        let up: Vec3 = up.into().into();
-        let forward: Vec3 = forward.into().into();
+        let up: Vec3 = up.into();
+        let forward: Vec3 = forward.into();
 
         let result = forward.cross(up);
-        From::from(result.into())
+        From::from(result)
     }
 
     fn up_from_right_and_forward<V, U>(right: V, forward: V) -> U
     where
-        V: Into<mint::Vector3<f32>>,
-        U: From<mint::Vector3<f32>>,
+        V: Into<Vec3>,
+        U: From<Vec3>,
     {
-        let right: Vec3 = right.into().into();
-        let forward: Vec3 = forward.into().into();
+        let right: Vec3 = right.into();
+        let forward: Vec3 = forward.into();
 
         let result = right.cross(forward);
-        From::from(result.into())
+        From::from(result)
     }
 }

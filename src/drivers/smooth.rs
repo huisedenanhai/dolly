@@ -81,8 +81,8 @@ impl Smooth {
 
 impl<H: Handedness> RigDriver<H> for Smooth {
     fn update(&mut self, params: RigUpdateParams<H>) -> Transform<H> {
-        let parent_position = From::from(params.parent.position);
-        let parent_rotation = From::from(params.parent.rotation);
+        let parent_position = params.parent.position;
+        let parent_rotation = params.parent.rotation;
 
         let position = self.smoothed_position.exp_smooth_towards(
             &parent_position,
@@ -103,8 +103,8 @@ impl<H: Handedness> RigDriver<H> for Smooth {
         );
 
         Transform {
-            position: position.into(),
-            rotation: rotation.into(),
+            position,
+            rotation,
             phantom: PhantomData,
         }
     }
